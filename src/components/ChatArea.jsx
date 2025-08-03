@@ -4,10 +4,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { io } from 'socket.io-client';
 import { useThemeContext } from '../ThemeContext';
 
-
-
-
-const ENDPOINT = process.env.REACT_APP_SERVER_URL || 'http://localhost:5000';
+const ENDPOINT = process.env.REACT_APP_API_URL;
 const socket = io(ENDPOINT);
 
 const ChatArea = ({ selectedChat, currentUser }) => {
@@ -58,7 +55,7 @@ const ChatArea = ({ selectedChat, currentUser }) => {
         const fetchMessages = async () => {
             try {
                 const res = await fetch(
-                    `http://localhost:5000/messages?user1=${currentUser.id}&user2=${selectedChat.id}`,
+                    `${ENDPOINT}/messages?user1=${currentUser.id}&user2=${selectedChat.id}`,
                     { method: 'GET', headers: { 'Content-Type': 'application/json' } }
                 );
                 if (res.ok) {
@@ -97,7 +94,7 @@ const ChatArea = ({ selectedChat, currentUser }) => {
         };
         // Save to backend first
         try {
-            const res = await fetch('http://localhost:5000/messages', {
+            const res = await fetch(`${ENDPOINT}/messages`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

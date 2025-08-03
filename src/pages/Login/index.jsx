@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useThemeContext } from '../../ThemeContext';
 
+const baseUrl = process.env.REACT_APP_API_URL;
+
 const LoginSignup = () => {
     const [tab, setTab] = useState(0);
     const [loginData, setLoginData] = useState({ email: '', password: '' });
@@ -31,7 +33,7 @@ const LoginSignup = () => {
         setError("");
         // Your table columns are username, email, password
         const { username, email, password } = signupData;
-        axios.post("http://localhost:5000/register", { username, email, password })
+        axios.post(`${baseUrl}/register`, { username, email, password })
             .then(res => {
                 // Accept 201 as success, even if no explicit success flag
                 if (res.data.success || res.data.status === 'success' || res.status === 201) {
@@ -49,7 +51,7 @@ const LoginSignup = () => {
     const login = (event) => {
         event.preventDefault();
         setError("");
-        axios.post("http://localhost:5000/login", loginData)
+        axios.post(`${baseUrl}/login`, loginData)
             .then(res => {
                 // Accept login if status is 200 and message is 'Login successful'
                 if (res.status === 200 && res.data.message === "Login successful") {

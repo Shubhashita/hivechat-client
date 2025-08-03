@@ -32,6 +32,8 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 const drawerWidth = 320;
 
+const baseUrl = process.env.REACT_APP_API_URL;
+
 
 const SideBar = ({ refreshTrigger, currentUser, onSelectChat }) => {
     const { isLightTheme, toggleTheme } = useThemeContext();
@@ -47,7 +49,7 @@ const SideBar = ({ refreshTrigger, currentUser, onSelectChat }) => {
 
     useEffect(() => {
         if (!socketRef.current) {
-            socketRef.current = io("http://localhost:5000");
+            socketRef.current = io(baseUrl);
         }
         const socket = socketRef.current;
         // Exclude current user from the list
