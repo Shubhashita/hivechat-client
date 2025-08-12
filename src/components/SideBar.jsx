@@ -32,7 +32,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 const drawerWidth = 320;
 
-const baseUrl = process.env.REACT_APP_API_URL;
+const baseUrl = process.env.NODE_ENV === 'production' ? 'https://hivechat-server.onrender.com' : 'http://localhost:5000';
 
 
 const SideBar = ({ refreshTrigger, currentUser, onSelectChat }) => {

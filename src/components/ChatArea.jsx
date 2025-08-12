@@ -5,7 +5,7 @@ import { io } from 'socket.io-client';
 import { useThemeContext } from '../ThemeContext';
 
 const ENDPOINT = process.env.REACT_APP_API_URL;
-const socket = io(ENDPOINT);
+const socket = io(process.env.NODE_ENV === 'production' ? 'https://hivechat-server.onrender.com' : 'http://localhost:5000');
 
 const ChatArea = ({ selectedChat, currentUser }) => {
     const { isLightTheme } = useThemeContext();

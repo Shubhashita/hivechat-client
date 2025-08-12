@@ -45,6 +45,7 @@ const LoginSignup = () => {
             })
             .catch(err => {
                 setError(err.response?.data?.message || "Registration failed");
+                alert(err.response?.data?.message || "Registration failed"); // For debugging
             });
     };
 
