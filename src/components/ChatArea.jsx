@@ -33,7 +33,7 @@ const AudioMessage = ({ src, time, isCurrentUser, userAvatar }) => {
         if (source.startsWith('data:') || source.startsWith('blob:') || source.startsWith('http')) {
             return source;
         }
-        return `http://localhost:5000${source.startsWith('/') ? '' : '/'}${source}`;
+        return `${process.env.REACT_APP_SERVER_URL || 'http://localhost:5000'}${source.startsWith('/') ? '' : '/'}${source}`;
     };
 
     const audioSrc = getAudioSrc(src);
@@ -165,7 +165,7 @@ const ChatArea = ({ selectedChat, currentUser, socket, onCloseChat, onDeleteChat
         if (!selectedChat || !currentUserId) return;
 
         try {
-            await fetch(`http://localhost:5000/messages?user1=${currentUserId}&user2=${selectedChat.id}`, {
+            await fetch(`${process.env.REACT_APP_SERVER_URL || 'http://localhost:5000'}/messages?user1=${currentUserId}&user2=${selectedChat.id}`, {
                 method: 'DELETE'
             });
             setMessages([]);
@@ -259,7 +259,7 @@ const ChatArea = ({ selectedChat, currentUser, socket, onCloseChat, onDeleteChat
 
         // Save to DB
         try {
-            await fetch('http://localhost:5000/messages', {
+            await fetch(`${process.env.REACT_APP_SERVER_URL || 'http://localhost:5000'}/messages`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -367,7 +367,7 @@ const ChatArea = ({ selectedChat, currentUser, socket, onCloseChat, onDeleteChat
         const fetchMessages = async () => {
             try {
                 const res = await fetch(
-                    `http://localhost:5000/messages?user1=${currentUserId}&user2=${selectedChat.id}`,
+                    `${process.env.REACT_APP_SERVER_URL || 'http://localhost:5000'}/messages?user1=${currentUserId}&user2=${selectedChat.id}`,
                     { method: 'GET', headers: { 'Content-Type': 'application/json' } }
                 );
                 if (res.ok) {
@@ -415,7 +415,7 @@ const ChatArea = ({ selectedChat, currentUser, socket, onCloseChat, onDeleteChat
                 const formData = new FormData();
                 formData.append('file', selectedFile);
 
-                const res = await fetch('http://localhost:5000/upload', {
+                const res = await fetch(`${process.env.REACT_APP_SERVER_URL || 'http://localhost:5000'}/upload`, {
                     method: 'POST',
                     body: formData
                 });
@@ -441,7 +441,7 @@ const ChatArea = ({ selectedChat, currentUser, socket, onCloseChat, onDeleteChat
             setMessages(prev => [...prev, msg]);
 
             // Save to DB
-            await fetch('http://localhost:5000/messages', {
+            await fetch(`${process.env.REACT_APP_SERVER_URL || 'http://localhost:5000'}/messages`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

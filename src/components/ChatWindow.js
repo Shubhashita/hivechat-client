@@ -13,7 +13,7 @@ const ChatWindow = ({ isLightTheme, onToggleTheme, currentUser }) => {
 
     // Initialize socket
     useEffect(() => {
-        const newSocket = io("http://localhost:5000");
+        const newSocket = io(process.env.REACT_APP_SERVER_URL || "http://localhost:5000");
         setSocket(newSocket);
         return () => newSocket.close();
     }, []);

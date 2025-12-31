@@ -19,7 +19,7 @@ const SignInForm = ({ buttonClasses, buttonForGFT }) => {
     setError("");
 
     try {
-      const response = await axios.post("http://localhost:5000/user/login", formData);
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL || 'http://localhost:5000'}/user/login`, formData);
       if (response.status === 200) {
         const { token, user } = response.data.data;
         sessionStorage.setItem("currentUser", JSON.stringify(user));

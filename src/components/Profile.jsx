@@ -62,7 +62,7 @@ const Profile = ({ currentUser }) => {
         try {
             const token = sessionStorage.getItem("token");
             if (token) {
-                await fetch("http://localhost:5000/user/logout", {
+                await fetch(`${process.env.REACT_APP_SERVER_URL || 'http://localhost:5000'}/user/logout`, {
                     method: 'POST',
                     headers: { 'Authorization': `Bearer ${token}` }
                 });

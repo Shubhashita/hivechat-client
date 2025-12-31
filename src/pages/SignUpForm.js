@@ -34,7 +34,7 @@ const SignUpForm = ({ buttonClasses, buttonForGFT, toggleSignUpMode }) => {
         password: formData.password,
       };
 
-      const response = await axios.post("http://localhost:5000/user/onboard", payload);
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL || 'http://localhost:5000'}/user/onboard`, payload);
 
       if (response.data.success) {
         alert("Registration successful! Please login.");
